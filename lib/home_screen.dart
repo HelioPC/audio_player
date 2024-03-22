@@ -51,24 +51,27 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 6,
         title: const Text('Audio Player'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StreamBuilder<PositionData?>(
-            stream: _positionDataStream,
-            builder: (ctx, snap) {
-              final positionData = snap.data;
-              return ProgressBar(
-                barHeight: 8,
-                progress: positionData?.position ?? Duration.zero,
-                total: positionData?.duration ?? Duration.zero,
-                buffered: positionData?.bufferedPosition ?? Duration.zero,
-                onSeek: _player.seek,
-              );
-            },
-          ),
-          Controls(player: _player),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            StreamBuilder<PositionData?>(
+              stream: _positionDataStream,
+              builder: (ctx, snap) {
+                final positionData = snap.data;
+                return ProgressBar(
+                  barHeight: 8,
+                  progress: positionData?.position ?? Duration.zero,
+                  total: positionData?.duration ?? Duration.zero,
+                  buffered: positionData?.bufferedPosition ?? Duration.zero,
+                  onSeek: _player.seek,
+                );
+              },
+            ),
+            Controls(player: _player),
+          ],
+        ),
       ),
     );
   }
